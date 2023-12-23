@@ -10,7 +10,8 @@
     "format": "prettier -w src/**/*",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migration:make": "knex migrate:make -x ts",
-    "migration:up": "env-cmd -f .env knex migrate:latest"
+    "migration:up": "env-cmd -f .env knex migrate:latest",
+    "migration:rollback": "env-cmd -f .env knex migrate:rollback"
   },
   "author": "",
   "license": "ISC",
