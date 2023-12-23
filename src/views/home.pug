@@ -1,7 +1,9 @@
 extends _layout.pug
 
 block content
-  h1 Kowaseru Home
-
-  a.btn.btn-outline-secondary(href='/signin') Sign In
-  a.btn.btn-primary(href='/signup') Sign Up
+  nav.navbar.navbar-expand-lg
+    div.container-fluid
+      a.navbar-brand(href='/') Kowaseru
+      div
+        a.btn.btn-outline-secondary.me-2(href='/signin') Sign In
+        a.btn.btn-primary(href='/signup') Sign Up
