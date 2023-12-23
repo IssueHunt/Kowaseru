@@ -1,0 +1,31 @@
+{
+  "name": "kowaseru-server",
+  "version": "0.0.1",
+  "description": "Kowaseru Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsx src/entry.ts",
+    "dev": "env-cmd -f .env tsx watch src/entry.ts",
+    "format": "prettier -w src/**/*",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migration:make": "knex migrate:make -x ts",
+    "migration:up": "env-cmd -f .env knex migrate:latest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "@types/pug": "^2.0.10",
+    "env-cmd": "^10.1.0",
+    "prettier": "^3.1.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.6.2",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "knex": "^3.1.0",
+    "pg": "^8.11.3",
+    "prismy": "^3.0.0-11",
+    "pug": "^3.0.2"
+  }
+}
