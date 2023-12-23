@@ -1,0 +1,12 @@
+doctype html
+
+html
+  head
+    title= title == null ? 'Kowaseru' : `${title} - Kowaseru`
+    block scripts
+      script(src='/jquery.js')
+  body
+    block content
+    block foot
+      footer#footer
+        p Kowaseru Server

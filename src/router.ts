@@ -1,10 +1,11 @@
-import { prismy, res, router } from 'prismy'
+import { prismy, router } from 'prismy'
+import render from './render'
 
 export default router([
   [
     '/',
     prismy([], () => {
-      return res('')
+      return render('home')
     })
   ]
 ])
