@@ -1,11 +1,8 @@
-import { prismy, router } from 'prismy'
-import render from './render'
+import { router } from 'prismy'
+import homePageHandler from './routes/home'
+import publicHandler from './routes/public'
 
 export default router([
-  [
-    '/',
-    prismy([], () => {
-      return render('home')
-    })
-  ]
+  ['/', homePageHandler],
+  ['/public/:publicFilePath+', publicHandler]
 ])

@@ -6,6 +6,7 @@
   "scripts": {
     "start": "tsx src/entry.ts",
     "dev": "env-cmd -f .env tsx watch src/entry.ts",
+    "prepare": "rimraf public/assets && mkdir public/assets && cp -a node_modules/bootstrap/dist/ public/assets/bootstrap/",
     "format": "prettier -w src/**/*",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migration:make": "knex migrate:make -x ts",
@@ -18,12 +19,15 @@
     "@types/pug": "^2.0.10",
     "env-cmd": "^10.1.0",
     "prettier": "^3.1.1",
+    "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "tsx": "^4.6.2",
     "typescript": "^5.3.2"
   },
   "dependencies": {
+    "bootstrap": "^5.3.2",
     "knex": "^3.1.0",
+    "mime": "^4.0.1",
     "pg": "^8.11.3",
     "prismy": "^3.0.0-11",
     "pug": "^3.0.2"
