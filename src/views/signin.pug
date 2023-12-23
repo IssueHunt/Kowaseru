@@ -1,0 +1,16 @@
+extends _layout.pug
+
+block content
+  div.container-sm
+    div.row
+      div.col-sm-6.offset-sm-3
+        h1 Sign In
+        form(action='/signin' method='post')
+          div.form-group
+            label E-mail
+            input.form-control(type='email')
+          div.form-group
+            label Password
+            input.form-control(type='password')
+          div.mt-2
+            button.btn.btn-primary(type='submit') Sign In
