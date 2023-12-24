@@ -1,4 +1,4 @@
-import knex from 'knex'
+import knex, { Knex } from 'knex'
 
 const db = knex({
   client: 'pg',
@@ -15,3 +15,23 @@ const db = knex({
 })
 
 export default db
+
+declare module 'knex/types/tables' {
+  interface User {
+    id: number
+    name: string
+    email: string
+    password: string
+  }
+
+  interface Tables {
+    users: User
+    users_composite: Knex.CompositeTableType<
+      User,
+      // insert
+      Pick<User, 'name' | 'email' | 'password'>,
+      // update
+      Partial<Omit<User, 'id'>>
+    >
+  }
+}

@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20.10.5",
     "@types/pug": "^2.0.10",
     "env-cmd": "^10.1.0",
@@ -26,11 +27,15 @@
     "typescript": "^5.3.2"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.2",
     "knex": "^3.1.0",
     "mime": "^4.0.1",
     "pg": "^8.11.3",
     "prismy": "^3.0.0-11",
+    "prismy-cookie": "^3.0.0-1",
+    "prismy-session": "^3.0.0-1",
+    "prismy-session-strategy-jwt-cookie": "^3.0.0-1",
     "pug": "^3.0.2"
   }
 }

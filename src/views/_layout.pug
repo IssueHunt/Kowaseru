@@ -11,9 +11,14 @@ html
       nav.navbar
         div.container-fluid
           a.navbar-brand(href='/') Kowaseru
-          div
-            a.btn.btn-outline-secondary.me-2(href='/signin') Sign In
-            a.btn.btn-primary(href='/signup') Sign Up
+          if (uid == null)
+            div
+              a.btn.btn-outline-secondary.me-2(href='/signin') Sign In
+              a.btn.btn-primary(href='/signup') Sign Up
+          else
+            div
+              form(action='/signout' method='post')
+                button.btn.btn-danger(type='submit') Sign Out
 
       block content
       block foot

@@ -5,12 +5,15 @@ block content
     div.row
       div.col-sm-6.offset-sm-3
         h1 Sign Up
-        form(action='/signin' method='post')
+        form(action='/signup' method='post')
+          div.form-group
+            label User Name
+            input.form-control(type='string' name='name')
           div.form-group
             label E-mail
-            input.form-control(type='email')
+            input.form-control(type='email' name='email')
           div.form-group
             label Password
-            input.form-control(type='password')
-          div.mt-2
+            input.form-control(type='password' name='password')
+          div.mt-2.d-grid
             button.btn.btn-primary(type='submit') Sign Up

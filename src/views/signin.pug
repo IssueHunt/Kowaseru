@@ -5,12 +5,23 @@ block content
     div.row
       div.col-sm-6.offset-sm-3
         h1 Sign In
+
+        if (typeof error === 'string')
+          div.alert.alert-danger
+            case (error)
+              when 'missing-email'
+                | Email is missing.
+              when 'missing-name'
+                | Name is missing.
+              when 'auth-fail'
+                | E-mail and Password are not matching.
+
         form(action='/signin' method='post')
           div.form-group
             label E-mail
-            input.form-control(type='email')
+            input.form-control(type='email' name='email')
           div.form-group
             label Password
-            input.form-control(type='password')
-          div.mt-2
+            input.form-control(type='password' name='password')
+          div.mt-2.d-grid
             button.btn.btn-primary(type='submit') Sign In
