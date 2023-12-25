@@ -1,9 +1,8 @@
-import render from '../render'
+import { render } from '../render'
 import p from '../prismy'
-import { sessionSelector } from '../session'
 
-const homePageHandler = p([sessionSelector], session => {
-  return render('home', { uid: session.data?.uid })
+const homePageHandler = p([], () => {
+  return render('home')
 })
 
 export default homePageHandler

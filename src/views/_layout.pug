@@ -11,7 +11,7 @@ html
       nav.navbar
         div.container-fluid
           a.navbar-brand(href='/') Kowaseru
-          if (uid == null)
+          if (global.uid == null)
             div
               a.btn.btn-outline-secondary.me-2(href='/signin') Sign In
               a.btn.btn-primary(href='/signup') Sign Up

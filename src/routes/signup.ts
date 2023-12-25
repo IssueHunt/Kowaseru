@@ -1,5 +1,5 @@
 import { redirect } from 'prismy'
-import render from '../render'
+import { render } from '../render'
 import p from '../prismy'
 import { sessionSelector } from '../session'
 import { urlEncodedBodySelector } from '../selectors'
