@@ -1,4 +1,34 @@
 extends _layout.pug
 
 block content
-  div Home
+  div.container
+    div.row
+      div.col-sm-6.offset-sm-3
+        if (global.currentUser != null)
+          div.card.p-2
+            if (typeof error === 'string')
+              div.alert.alert-danger
+                case (error)
+                  when 'missing-content'
+                    | Content is missing.
+                  when 'unauthenticated'
+                    | You need to sign up to post.
+            form(action='/posts' method='post')
+              div.form-group.mb-2
+                textarea.form-control(name='content' placeholder='What are you thinking now?')
+              div
+                button.btn.btn-primary(type='submit') Post
+        else
+          div.card
+            p Sign up to post
+            a.btn.btn-primary(href='/signup') Sign Up
+            a.btn.btn-outline-secondary(href='/signin') Sign In
+
+        hr
+        each post in posts
+          div.card.p-2
+            div.mb-2
+              div Writer: #{post.user_name}
+            div.card.p-2
+              p=post.content
+            div created at #{post.created_at}
