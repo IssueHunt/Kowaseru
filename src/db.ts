@@ -24,6 +24,13 @@ declare module 'knex/types/tables' {
     password: string
   }
 
+  interface Post {
+    id: number
+    content: string
+    user_id: number
+    created_at: Date
+  }
+
   interface Tables {
     users: User
     users_composite: Knex.CompositeTableType<
@@ -32,6 +39,15 @@ declare module 'knex/types/tables' {
       Pick<User, 'name' | 'email' | 'password'>,
       // update
       Partial<Omit<User, 'id'>>
+    >
+
+    posts: Post
+    posts_composite: Knex.CompositeTableType<
+      Post,
+      // insert
+      Pick<Post, 'content' | 'user_id'>,
+      // update
+      Partial<Omit<Post, 'id'>>
     >
   }
 }
