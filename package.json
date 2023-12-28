@@ -13,8 +13,8 @@
     "migration:up": "env-cmd -f .env knex migrate:latest",
     "migration:rollback": "env-cmd -f .env knex migrate:rollback"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Junyoung Choi <rokt33r@issuehunt.io>",
+  "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20.10.5",
