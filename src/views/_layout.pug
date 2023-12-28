@@ -5,22 +5,27 @@ html
     title= title == null ? 'Kowaseru' : `${title} - Kowaseru`
     block head
       link(href='/public/assets/bootstrap/css/bootstrap.min.css' rel='stylesheet')
-      script(src='/public/assets/bootstrap/js/bootstrap.min.js')
   body
-    div.container
-      nav.navbar
-        div.container-fluid
-          a.navbar-brand(href='/') Kowaseru
-          if (global.uid == null)
-            div
-              a.btn.btn-outline-secondary.me-2(href='/signin') Sign In
-              a.btn.btn-primary(href='/signup') Sign Up
-          else
+    nav.navbar.navbar-expand-lg
+      div.container
+        a.navbar-brand(href='/') Kowaseru
+
+
+        if (global.currentUser == null)
+          div
+            a.btn.btn-outline-secondary.me-2(href='/signin') Sign In
+            a.btn.btn-primary(href='/signup') Sign Up
+
+        else
+          div.d-flex
+            div.me-2= global.currentUser.name
             div
               form(action='/signout' method='post')
                 button.btn.btn-danger(type='submit') Sign Out
 
-      block content
-      block foot
-        footer#footer
-          p.text-center Kowaseru Server
+    block content
+    block foot
+      footer#footer
+        p.text-center Kowaseru Server
+
+    script(src='/public/assets/bootstrap/js/bootstrap.min.js')
