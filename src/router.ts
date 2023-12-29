@@ -4,7 +4,7 @@ import publicHandler from './routes/public'
 import { signInHandler, signInPageHandler } from './routes/signin'
 import { signUpHandler, signUpPageHandler } from './routes/signup'
 import { signOutHandler } from './routes/signout'
-import { postsCreateHandler } from './routes/posts'
+import { postsCreateHandler, postsDeleteHandler } from './routes/posts'
 
 export default router([
   ['/', homePageHandler],
@@ -16,6 +16,7 @@ export default router([
   [['/signout', 'post'], signOutHandler],
 
   [['/posts', 'post'], postsCreateHandler],
+  [['/posts/:postId/delete', 'post'], postsDeleteHandler],
 
   ['/public/:publicFilePath+', publicHandler]
 ])

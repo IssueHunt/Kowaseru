@@ -19,16 +19,31 @@ block content
               div
                 button.btn.btn-primary(type='submit') Post
         else
-          div.card
+          div.card.p-2
             p Sign up to post
-            a.btn.btn-primary(href='/signup') Sign Up
-            a.btn.btn-outline-secondary(href='/signin') Sign In
+            div.mb-2
+              a.btn.btn-primary(href='/signup') Sign Up
+            div.mb-2
+              a.btn.btn-outline-secondary(href='/signin') Sign In
 
         hr
+
         each post in posts
-          div.card.p-2
-            div.mb-2
-              div Writer: #{post.user_name}
+          div.card.p-2.mb-3
+            div.mb-2.d-flex.align-items-center.justify-content-between
+              div.me-2 Writer: #{post.user_name}
+
+              if (global.currentUser != null && global.currentUser.id === post.user_id)
+                div.dropdown
+                  button.btn.btn-outline-secondary.dropdown-toggle(type='button' data-bs-toggle="dropdown" aria-expanded="false")
+                  ul.dropdown-menu
+                    li
+                      form(action=`/posts/${post.id}/delete` method='post')
+                        button.dropdown-item.text-danger(type='submit')
+                          span.me-2
+                            i.bi.bi-trash
+                          span Delete
+
             div.card.p-2
               p=post.content
             div created at #{post.created_at}
