@@ -27,8 +27,16 @@ declare module 'knex/types/tables' {
   interface Post {
     id: number
     content: string
-    user_id: number
     created_at: Date
+    user_id: number
+  }
+
+  interface Comment {
+    id: number
+    content: string
+    created_at: Date
+    user_id: number
+    post_id: number
   }
 
   interface Tables {
@@ -48,6 +56,15 @@ declare module 'knex/types/tables' {
       Pick<Post, 'content' | 'user_id'>,
       // update
       Partial<Omit<Post, 'id'>>
+    >
+
+    comments: Comment
+    comments_composite: Knex.CompositeTableType<
+      Comment,
+      // insert
+      Pick<Comment, 'content' | 'user_id' | 'post_id'>,
+      // update
+      Partial<Omit<Comment, 'id'>>
     >
   }
 }
