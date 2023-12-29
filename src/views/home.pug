@@ -15,7 +15,7 @@ block content
                     | You need to sign up to post.
             form(action='/posts' method='post')
               div.form-group.mb-2
-                textarea.form-control(name='content' placeholder='What are you thinking now?')
+                textarea.form-control(name='content' placeholder='What are you thinking now?' required)
               div
                 button.btn.btn-primary(type='submit') Post
         else
@@ -29,7 +29,7 @@ block content
         hr
 
         each post in posts
-          div.card.p-2.mb-3
+          div.card.p-2.mb-3(id=`post-${post.id}`)
             div.mb-2.d-flex.align-items-center.justify-content-between
               div.me-2 Writer: #{post.user_name}
 
@@ -47,3 +47,26 @@ block content
             div.card.p-2
               p=post.content
             div created at #{post.created_at}
+
+            hr
+
+            div Comments(#{post.comments.length})
+
+            each comment in post.comments
+              div.card.p-2.mb-2
+                div Commenter: #{comment.user_name}
+                div.card
+                  p.p-2= comment.content
+                div Commented at #{comment.created_at}
+
+
+            if (global.currentUser != null)
+              div
+                form(action='/comments' method='post')
+                  div.form-group.mb-2
+                    input.form-control(type='text' name='content' placeholder='Write a comment' required)
+                    input(type='hidden' name='post_id' value=post.id required)
+                  div
+                    button.btn.btn-primary(type='submit') Comment
+            else
+              p.text-body-secondary Sign up to comment

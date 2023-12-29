@@ -35,7 +35,8 @@ export const postsDeleteHandler = p(
       })
     }
 
-    const post = (postId != null && (await db('posts').select('*').where('id', '=', postId).limit(1))[0]) || null
+    const post =
+      (postId != null && (await db('posts').select('id', 'user_id').where('id', '=', postId).limit(1))[0]) || null
 
     if (post == null) {
       return render('error', {
