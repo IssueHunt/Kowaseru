@@ -5,7 +5,7 @@ import { signInHandler, signInPageHandler } from './routes/signin'
 import { signUpHandler, signUpPageHandler } from './routes/signup'
 import { signOutHandler } from './routes/signout'
 import { postsCreateHandler, postsDeleteHandler } from './routes/posts'
-import { commentsCreateHandler } from './routes/comments'
+import { commentsCreateHandler, commentsDeleteHandler } from './routes/comments'
 
 export default router([
   ['/', homePageHandler],
@@ -19,6 +19,7 @@ export default router([
   [['/posts', 'post'], postsCreateHandler],
   [['/posts/:postId/delete', 'post'], postsDeleteHandler],
   [['/comments', 'post'], commentsCreateHandler],
+  [['/comments/:commentId/delete', 'post'], commentsDeleteHandler],
 
   ['/public/:publicFilePath+', publicHandler]
 ])
