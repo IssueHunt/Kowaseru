@@ -3,7 +3,9 @@ include ./comment.pug
 mixin post(post)
   div.card.p-2.mb-3(id=`post-${post.id}`)
     div.mb-2.d-flex.align-items-center.justify-content-between
-      div.me-2 Writer: #{post.user_name}
+      div.me-2
+        span.me-1 Writer:
+        a(href=`/users/${post.user_id}`) #{post.user_name}
 
       if (global.currentUser != null && global.currentUser.id === post.user_id)
         div.dropdown

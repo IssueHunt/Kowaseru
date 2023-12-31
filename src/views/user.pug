@@ -1,0 +1,13 @@
+extends _layout.pug
+include mixins/post.pug
+
+block content
+  div.container
+    div.row
+      div.col-sm-6.offset-sm-3
+        div
+          h1 User Name: #{user.name}
+        hr
+
+        each post in posts
+          +post(post)

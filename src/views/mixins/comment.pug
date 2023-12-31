@@ -1,7 +1,9 @@
 mixin comment(comment)
   div.card.p-2.mb-2
     div.mb-2.d-flex.align-items-center.justify-content-between
-      div.me-2 Commenter: #{comment.user_name}
+      div.me-2
+        span.me-1 Commenter:
+        a(href=`/users/${comment.user_id}`) #{comment.user_name}
       if (global.currentUser != null && global.currentUser.id === comment.user_id)
         div.dropdown
           button.btn.btn-outline-secondary.dropdown-toggle(type='button' data-bs-toggle="dropdown" aria-expanded="false")
