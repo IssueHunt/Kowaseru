@@ -19,7 +19,7 @@ html
 
         else
           div.d-flex
-            //- XSS
+            //- VUL: XSS
             div.me-2!= global.currentUser.name
             div
               form(action='/signout' method='post')
