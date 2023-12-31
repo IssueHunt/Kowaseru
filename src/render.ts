@@ -1,6 +1,6 @@
 import pug from 'pug'
 import path from 'path'
-import { middleware, res } from 'prismy'
+import { middleware, res, urlSelector } from 'prismy'
 import { AsyncLocalStorage } from 'async_hooks'
 import { currentUserSelector } from './selectors'
 
@@ -14,15 +14,20 @@ export function render(viewFileName: string, locals?: any, statusCode: number = 
   return res(rendered, statusCode)
 }
 
-export const rendererGlobalStorageMiddleware = middleware([currentUserSelector], next => async currentUser => {
-  const localGlobal: { [key: string]: any } = {}
-  if (currentUser != null) {
-    localGlobal.currentUser = currentUser
-  }
+export const rendererGlobalStorageMiddleware = middleware(
+  [currentUserSelector, urlSelector],
+  next => async (currentUser, url) => {
+    const localGlobal: { [key: string]: any } = {
+      url
+    }
+    if (currentUser != null) {
+      localGlobal.currentUser = currentUser
+    }
 
-  return new Promise(resolve => {
-    rendererLocalGlobalStorage.run(localGlobal, async () => {
-      resolve(await next())
+    return new Promise(resolve => {
+      rendererLocalGlobalStorage.run(localGlobal, async () => {
+        resolve(await next())
+      })
     })
-  })
-})
+  }
+)

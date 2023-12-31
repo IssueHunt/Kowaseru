@@ -1,4 +1,4 @@
-import { createRouteParamSelector, redirect } from 'prismy'
+import { createRouteParamSelector, querySelector, redirect } from 'prismy'
 import p from '../prismy'
 import { currentUserSelector, urlEncodedBodySelector } from '../selectors'
 import { render } from '../render'
@@ -54,8 +54,8 @@ export const commentsCreateHandler = p([currentUserSelector, urlEncodedBodySelec
 })
 
 export const commentsDeleteHandler = p(
-  [currentUserSelector, createRouteParamSelector('commentId')],
-  async (currentUser, commentId) => {
+  [currentUserSelector, createRouteParamSelector('commentId'), querySelector],
+  async (currentUser, commentId, query) => {
     if (currentUser == null) {
       return render(
         'error',
@@ -94,6 +94,9 @@ export const commentsDeleteHandler = p(
 
     const hash = `#post-${comment.post_id}`
 
-    return redirect('/' + hash)
+    // VUL: Open Redirect
+    const redirectTo = (isString(query.from) ? query.from : '/') + hash
+
+    return redirect(redirectTo)
   }
 )

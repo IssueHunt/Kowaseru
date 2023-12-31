@@ -9,7 +9,7 @@ mixin comment(comment)
           button.btn.btn-outline-secondary.dropdown-toggle(type='button' data-bs-toggle="dropdown" aria-expanded="false")
           ul.dropdown-menu
             li
-              form(action=`/comments/${comment.id}/delete` method='post')
+              form(action=`/comments/${comment.id}/delete?from=${global.url.href}` method='post')
                 button.dropdown-item.text-danger(type='submit')
                   span.me-2
                     i.bi.bi-trash
