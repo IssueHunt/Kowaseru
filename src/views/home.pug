@@ -1,5 +1,5 @@
 extends _layout.pug
-include mixins/comment.pug
+include mixins/post.pug
 
 block content
   div.container
@@ -30,39 +30,4 @@ block content
         hr
 
         each post in posts
-          div.card.p-2.mb-3(id=`post-${post.id}`)
-            div.mb-2.d-flex.align-items-center.justify-content-between
-              div.me-2 Writer: #{post.user_name}
-
-              if (global.currentUser != null && global.currentUser.id === post.user_id)
-                div.dropdown
-                  button.btn.btn-outline-secondary.dropdown-toggle(type='button' data-bs-toggle="dropdown" aria-expanded="false")
-                  ul.dropdown-menu
-                    li
-                      form(action=`/posts/${post.id}/delete` method='post')
-                        button.dropdown-item.text-danger(type='submit')
-                          span.me-2
-                            i.bi.bi-trash
-                          span Delete
-
-            div.card.p-2
-              p=post.content
-            div Created at #{post.created_at}
-
-            hr
-
-            div Comments(#{post.comments.length})
-
-            each comment in post.comments
-              +comment(comment)
-
-            if (global.currentUser != null)
-              div
-                form(action='/comments' method='post')
-                  div.form-group.mb-2
-                    input.form-control(type='text' name='content' placeholder='Write a comment' required)
-                    input(type='hidden' name='post_id' value=post.id required)
-                  div
-                    button.btn.btn-primary(type='submit') Comment
-            else
-              p.text-body-secondary Sign up to comment
+          +post(post)
