@@ -1,4 +1,5 @@
 extends _layout.pug
+include mixins/comment.pug
 
 block content
   div.container
@@ -53,24 +54,7 @@ block content
             div Comments(#{post.comments.length})
 
             each comment in post.comments
-              div.card.p-2.mb-2
-                div.mb-2.d-flex.align-items-center.justify-content-between
-                  div.me-2 Commenter: #{comment.user_name}
-                  if (global.currentUser != null && global.currentUser.id === comment.user_id)
-                    div.dropdown
-                      button.btn.btn-outline-secondary.dropdown-toggle(type='button' data-bs-toggle="dropdown" aria-expanded="false")
-                      ul.dropdown-menu
-                        li
-                          form(action=`/comments/${comment.id}/delete` method='post')
-                            button.dropdown-item.text-danger(type='submit')
-                              span.me-2
-                                i.bi.bi-trash
-                              span Delete
-
-                div.card
-                  p.p-2= comment.content
-                div Commented at #{comment.created_at}
-
+              +comment(comment)
 
             if (global.currentUser != null)
               div
