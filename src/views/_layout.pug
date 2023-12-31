@@ -19,7 +19,8 @@ html
 
         else
           div.d-flex
-            div.me-2= global.currentUser.name
+            //- XSS
+            div.me-2!= global.currentUser.name
             div
               form(action='/signout' method='post')
                 button.btn.btn-danger(type='submit') Sign Out
