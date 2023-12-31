@@ -6,12 +6,12 @@ import { currentUserSelector } from './selectors'
 
 const rendererLocalGlobalStorage = new AsyncLocalStorage()
 
-export function render(viewFileName: string, locals?: any) {
+export function render(viewFileName: string, locals?: any, statusCode: number = 200) {
   const localGlobal = rendererLocalGlobalStorage.getStore()
 
   const rendered = pug.renderFile(path.join(__dirname, `views/${viewFileName}.pug`), { ...locals, global: localGlobal })
 
-  return res(rendered)
+  return res(rendered, statusCode)
 }
 
 export const rendererGlobalStorageMiddleware = middleware([currentUserSelector], next => async currentUser => {

@@ -7,22 +7,26 @@
     "start": "tsx src/entry.ts",
     "dev": "env-cmd -f .env tsx watch src/entry.ts",
     "format": "prettier -w src/**/*",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_OPTIONS='--import=tsx --no-warnings' env-cmd -f .test.env mocha ./src/**/*.spec.ts --exit",
     "migration:make": "knex migrate:make -x ts",
     "migration:up": "env-cmd -f .env knex migrate:latest",
+    "migration:up:test": "env-cmd -f .test.env knex migrate:latest",
     "migration:rollback": "env-cmd -f .env knex migrate:rollback"
   },
   "author": "Junyoung Choi <rokt33r@issuehunt.io>",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
+    "@faker-js/faker": "^8.3.1",
     "@types/bcrypt": "^5.0.2",
+    "@types/mocha": "^10.0.6",
     "@types/node": "^20.10.5",
     "@types/pug": "^2.0.10",
     "env-cmd": "^10.1.0",
+    "mocha": "^10.2.0",
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
-    "tsx": "^4.6.2",
+    "tsx": "^4.7.0",
     "typescript": "^5.3.2"
   },
   "dependencies": {
