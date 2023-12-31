@@ -17,5 +17,7 @@ describe('commentsDeleteHandler', () => {
     // Then
     const list = await db('comments').select('*').where('id', comment.id)
     assert.equal(list.length, 0)
+    assert.equal(result.headers?.location, `/#post-${comment.post_id}`)
+    assert.equal(result.statusCode, 302)
   })
 })
