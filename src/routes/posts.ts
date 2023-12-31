@@ -2,7 +2,7 @@ import { createRouteParamSelector, querySelector, redirect, res } from 'prismy'
 import { currentUserSelector, urlEncodedBodySelector } from '../selectors'
 import p from '../prismy'
 import { isString } from '../validators'
-import db from '../db'
+import db from '../db/db'
 import { render } from '../render'
 
 export const postsCreateHandler = p([currentUserSelector, urlEncodedBodySelector], async (currentUser, body) => {

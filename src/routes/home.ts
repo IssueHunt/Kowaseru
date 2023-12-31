@@ -1,6 +1,6 @@
 import { render } from '../render'
 import p from '../prismy'
-import db from '../db'
+import db from '../db/db'
 import { querySelector } from 'prismy'
 
 const homePageHandler = p([querySelector], async query => {

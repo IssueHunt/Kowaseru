@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { encryptPassword } from './password'
-import db from './db'
+import db from './db/db'
 
 export async function generateUser() {
   const userName = generateUserName()

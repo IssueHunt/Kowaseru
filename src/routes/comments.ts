@@ -3,7 +3,7 @@ import p from '../prismy'
 import { currentUserSelector, urlEncodedBodySelector } from '../selectors'
 import { render } from '../render'
 import { isString } from '../validators'
-import db from '../db'
+import db from '../db/db'
 
 export const commentsCreateHandler = p([currentUserSelector, urlEncodedBodySelector], async (currentUser, body) => {
   if (currentUser == null) {

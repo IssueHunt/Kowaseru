@@ -1,5 +1,5 @@
 import { commentsDeleteHandler } from './comments'
-import db from '../db'
+import db from '../db/db'
 import { generateComment, generateUser } from '../testUtils'
 import assert from 'assert'
 

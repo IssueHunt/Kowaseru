@@ -3,7 +3,7 @@ import { render } from '../render'
 import p from '../prismy'
 import { sessionSelector } from '../session'
 import { urlEncodedBodySelector } from '../selectors'
-import db from '../db'
+import db from '../db/db'
 import { encryptPassword } from '../password'
 import { isString } from '../validators'
 

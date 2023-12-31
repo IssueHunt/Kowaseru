@@ -1,7 +1,7 @@
 import { User } from 'knex/types/tables'
 import { AsyncSelector, createUrlEncodedBodySelector } from 'prismy'
 import { sessionSelector } from './session'
-import db from './db'
+import db from './db/db'
 
 export const urlEncodedBodySelector = createUrlEncodedBodySelector()
 
