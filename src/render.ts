@@ -14,6 +14,17 @@ export function render(viewFileName: string, locals?: any, statusCode: number = 
   return res(rendered, statusCode)
 }
 
+export function renderErrorPage(name: string, description: string, statusCode: number = 500) {
+  return render(
+    'error',
+    {
+      errorName: name,
+      errorDescription: description
+    },
+    statusCode
+  )
+}
+
 export const rendererGlobalStorageMiddleware = middleware(
   [currentUserSelector, urlSelector],
   next => async (currentUser, url) => {
