@@ -9,8 +9,7 @@ import p from '../prismy'
 const publicHandler = p([createRouteParamSelector('publicFilePath')], async publicFilePath => {
   const dangerousPathString = (publicFilePath as any as string[]).join('/')
   const sanitzedPathString = escapePathString(dangerousPathString)
-  // VUL: IDOR
-  const targetPath = path.join(process.cwd(), 'public', dangerousPathString)
+  const targetPath = path.join(process.cwd(), 'public', sanitzedPathString)
 
   const contentType = mime.getType(targetPath) || 'application/octet-stream'
 
