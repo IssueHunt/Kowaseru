@@ -12,7 +12,7 @@ describe('commentsDeleteHandler', () => {
     })
 
     // When
-    const result = await commentsDeleteHandler.handler(user, comment.id.toString())
+    const result = await commentsDeleteHandler.handler(user, comment.id.toString(), {})
 
     // Then
     const list = await db('comments').select('*').where('id', comment.id)
