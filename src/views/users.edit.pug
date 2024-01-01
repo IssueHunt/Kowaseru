@@ -1,0 +1,32 @@
+extends _layout.pug
+include mixins/post.pug
+
+block content
+  div.container
+    div.row
+      div.col-sm-6.offset-sm-3
+        h1 Edit User Profile
+
+        form(action=`/users/${user.id}` method='post')
+          div.form-group
+            label Name
+            input.form-control(type='text' name='name' value=user.name)
+          div.mt-2
+            button.btn.btn-primary(type='submit') Submit
+
+        hr
+
+        h2 Change Password
+
+        form(action=`/users/${user.id}/password` method='post')
+          div.form-group
+            label Current Password
+            input.form-control(type='password' name='currentPassword' required)
+          div.form-group
+            label New Password
+            input.form-control(type='password' name='newPassword' required)
+          div.form-group
+            label New Password Confirmation
+            input.form-control(type='password' name='newPasswordConfirmation' required)
+          div.mt-2
+            button.btn.btn-primary(type='submit') Submit

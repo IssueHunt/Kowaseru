@@ -5,8 +5,11 @@ block content
   div.container
     div.row
       div.col-sm-6.offset-sm-3
-        div
+        div.d-flex.justify-content-between.align-items-center
           h1 User Name: #{user.name}
+          if (user.id === global.currentUser.id)
+            div
+              a.btn.btn-outline-secondary(href=`/users/${user.id}/edit`) Edit Profile
         hr
 
         each post in posts
