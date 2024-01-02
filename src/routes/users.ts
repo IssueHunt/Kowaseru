@@ -1,10 +1,11 @@
-import { createRouteParamSelector, redirect } from 'prismy'
+import { createRouteParamSelector, querySelector, redirect } from 'prismy'
 import p from '../prismy'
 import db from '../db/db'
 import { render, renderErrorPage } from '../render'
 import { listPosts } from '../db/methods'
 import { currentUserSelector, urlEncodedBodySelector } from '../selectors'
 import { isString } from '../validators'
+import { checkPassword, encryptPassword } from '../password'
 
 export const usersShowPageHandler = p([createRouteParamSelector('userId')], async userId => {
   const user = (await db('users').select('id', 'name').where('id', userId))[0]
@@ -21,7 +22,7 @@ export const usersShowPageHandler = p([createRouteParamSelector('userId')], asyn
   })
 })
 
-export const usersEditPageHandler = p([createRouteParamSelector('userId')], async userId => {
+export const usersEditPageHandler = p([createRouteParamSelector('userId'), querySelector], async (userId, query) => {
   const user = (await db('users').select('id', 'name').where('id', userId))[0]
 
   if (user == null) {
@@ -29,7 +30,9 @@ export const usersEditPageHandler = p([createRouteParamSelector('userId')], asyn
   }
 
   return render('users.edit', {
-    user
+    user,
+    error: query.error,
+    success: query.success
   })
 })
 
@@ -67,22 +70,38 @@ export const usersPasswordUpdateHandler = p(
       return renderErrorPage('Unauthenticated', 'Please sign in.', 401)
     }
 
-    if (!isString(body.name)) {
-      return renderErrorPage('Missing Name', 'Provide name.')
+    if (!isString(body.currentPassword)) {
+      return renderErrorPage('Missing Name', 'Provide current password.')
     }
 
-    const user = (await db('users').select('id', 'name').where('id', userId))[0]
+    if (!isString(body.newPassword)) {
+      return renderErrorPage('Missing Name', 'Provide new password.')
+    }
+
+    if (!isString(body.newPasswordConfirmation)) {
+      return renderErrorPage('Missing Name', 'Provide new password confirmation.')
+    }
+
+    if (body.newPassword !== body.newPasswordConfirmation) {
+      return redirect(`/users/${userId}/edit?error=missmatching-new-password`)
+    }
+
+    const user = (await db('users').select('id', 'password').where('id', userId))[0]
     if (user == null) {
       return renderErrorPage('Not Found', 'The user does not exist.', 404)
     }
 
-    // VUL: IDOR
-    // if (user.id !== currentUser.id) {
-    //   return renderErrorPage('Forbidden', 'Only the user can edit their profile.', 403)
-    // }
+    if (user.id !== currentUser.id) {
+      return renderErrorPage('Forbidden', 'Only the user can edit their profile.', 403)
+    }
 
-    await db('users').update('name', body.name).where('id', userId)
+    if (!(await checkPassword(body.currentPassword, user.password))) {
+      return redirect(`/users/${userId}/edit?error=wrong-current-password`)
+    }
 
-    return redirect(`/users/${user.id}`)
+    const newEncryptedPassword = await encryptPassword(body.newPassword)
+    await db('users').update('password', newEncryptedPassword).where('id', userId)
+
+    return redirect(`/users/${user.id}/edit?success=true`)
   }
 )

@@ -18,6 +18,16 @@ block content
 
         h2 Change Password
 
+        if (typeof error === 'string')
+          div.alert.alert-danger
+            case (error)
+              when 'missmatching-new-password'
+                | New password and new password confirmation are not matching.
+              when 'wrong-current-password'
+                | The current password is wrong.
+        if (success === 'true')
+          div.alert.alert-success The password has been changed successfully.
+
         form(action=`/users/${user.id}/password` method='post')
           div.form-group
             label Current Password

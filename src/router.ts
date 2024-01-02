@@ -6,7 +6,12 @@ import { signUpHandler, signUpPageHandler } from './routes/signup'
 import { signOutHandler } from './routes/signout'
 import { postsCreateHandler, postsDeleteHandler } from './routes/posts'
 import { commentsCreateHandler, commentsDeleteHandler } from './routes/comments'
-import { usersEditPageHandler, usersShowPageHandler, usersUpdateHandler } from './routes/users'
+import {
+  usersEditPageHandler,
+  usersPasswordUpdateHandler,
+  usersShowPageHandler,
+  usersUpdateHandler
+} from './routes/users'
 import p from './prismy'
 import { render } from './render'
 
@@ -28,6 +33,7 @@ export default router(
     ['/users/:userId', usersShowPageHandler],
     ['/users/:userId/edit', usersEditPageHandler],
     [['/users/:userId', 'post'], usersUpdateHandler],
+    [['/users/:userId/password', 'post'], usersPasswordUpdateHandler],
 
     ['/public/:publicFilePath+', publicHandler]
   ],
