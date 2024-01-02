@@ -13,6 +13,7 @@ mixin post(post)
           ul.dropdown-menu
             li
               form(action=`/posts/${post.id}/delete` method='post')
+                input(type='hidden' name='from' value=global.url.href)
                 button.dropdown-item.text-danger(type='submit')
                   span.me-2
                     i.bi.bi-trash
@@ -32,6 +33,7 @@ mixin post(post)
     if (global.currentUser != null)
       div
         form(action='/comments' method='post')
+          input(type='hidden' name='from' value=global.url.href)
           div.form-group.mb-2
             input.form-control(type='text' name='content' placeholder='Write a comment' required)
             input(type='hidden' name='post_id' value=post.id required)

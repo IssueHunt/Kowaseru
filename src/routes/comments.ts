@@ -48,14 +48,17 @@ export const commentsCreateHandler = p([currentUserSelector, urlEncodedBodySelec
     user_id: currentUser.id
   })
 
-  const hash = `#post-${post.id}`
+  const hash = `#post-${postId}`
 
-  return redirect('/' + hash)
+  // VUL: Open Redirect
+  const redirectTo = (isString(body.from) ? body.from : '/') + hash
+
+  return redirect(redirectTo)
 })
 
 export const commentsDeleteHandler = p(
-  [currentUserSelector, createRouteParamSelector('commentId'), querySelector],
-  async (currentUser, commentId, query) => {
+  [currentUserSelector, createRouteParamSelector('commentId'), urlEncodedBodySelector],
+  async (currentUser, commentId, body) => {
     if (currentUser == null) {
       return render(
         'error',
@@ -95,7 +98,7 @@ export const commentsDeleteHandler = p(
     const hash = `#post-${comment.post_id}`
 
     // VUL: Open Redirect
-    const redirectTo = (isString(query.from) ? query.from : '/') + hash
+    const redirectTo = (isString(body.from) ? body.from : '/') + hash
 
     return redirect(redirectTo)
   }

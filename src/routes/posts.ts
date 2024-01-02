@@ -26,8 +26,8 @@ export const postsCreateHandler = p([currentUserSelector, urlEncodedBodySelector
 })
 
 export const postsDeleteHandler = p(
-  [currentUserSelector, createRouteParamSelector('postId')],
-  async (currentUser, postId) => {
+  [currentUserSelector, createRouteParamSelector('postId'), urlEncodedBodySelector],
+  async (currentUser, postId, body) => {
     if (currentUser == null) {
       return render('error', {
         errorName: 'Unauthenticated',
@@ -54,6 +54,9 @@ export const postsDeleteHandler = p(
 
     await db('posts').where('id', '=', postId).delete()
 
-    return redirect('/')
+    // VUL: Open Redirect
+    const redirectTo = isString(body.from) ? body.from : '/'
+
+    return redirect(redirectTo)
   }
 )
