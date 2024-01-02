@@ -1,8 +1,17 @@
 # Kowaseru
 
-## How to use
+A vulnerable server to practice pen testing.
 
-Configure env vars or create .env file.
+## How to run
+
+### Requirements
+
+- [Node.js LTS](https://nodejs.org/en)
+- (Optional) [Docker Desktop](https://docs.docker.com/compose/install/) : If you want to use your own db, you don't need this.
+
+### Steps
+
+1 - Configure env vars or create .env file.
 
 ```
 BASE_URL=http://localhost
@@ -15,10 +24,24 @@ DB_NAME=kowaseru
 SESSION_SECRET=
 ```
 
-For `SESSION_SECRET`, use the command below or somehow generate **32 bytes of full-entropy key**.
+> If you edit db info in `docker-compose.yml`, update .env too.
+
+> For `SESSION_SECRET`, use the command below or somehow generate **32 bytes of full-entropy key**.
+>
+> ```
+> openssl rand -hex 32
+> ```
+
+2 - Install all deps.
 
 ```
-openssl rand -hex 32
+npm i
+```
+
+3 - Run the server.
+
+```
+npm start
 ```
 
 ## Development
