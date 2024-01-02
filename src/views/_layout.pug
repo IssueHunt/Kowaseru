@@ -9,7 +9,12 @@ html
   body
     nav.navbar.navbar-expand-lg
       div.container
-        a.navbar-brand(href='/') Kowaseru
+        div.d-flex.align-items-center
+          a.navbar-brand.me-2(href='/') Kowaseru
+          form(action='/search' method='get')
+            div.d-flex
+              input.form-control.me-2(type='text' name='keyword' required placeholder='search')
+              button.btn.btn-outline-success(type='submit') Search
 
 
         if (global.currentUser == null)
@@ -18,7 +23,7 @@ html
             a.btn.btn-primary(href='/signup') Sign Up
 
         else
-          div.d-flex
+          div.d-flex.align-items-center
             //- VUL: XSS
             div.me-2!= global.currentUser.name
             div

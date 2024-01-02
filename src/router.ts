@@ -14,6 +14,7 @@ import {
 } from './routes/users'
 import p from './prismy'
 import { render } from './render'
+import searchPageHandler from './routes/search'
 
 export default router(
   [
@@ -34,6 +35,8 @@ export default router(
     ['/users/:userId/edit', usersEditPageHandler],
     [['/users/:userId', 'post'], usersUpdateHandler],
     [['/users/:userId/password', 'post'], usersPasswordUpdateHandler],
+
+    ['/search', searchPageHandler],
 
     ['/public/:publicFilePath+', publicHandler]
   ],

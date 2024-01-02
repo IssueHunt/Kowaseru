@@ -3,6 +3,7 @@ import db from './db'
 export async function listPosts(
   filter: Partial<{
     userId: number
+    keyword: string
   }> = {}
 ) {
   let postQuery = db('posts')
@@ -11,6 +12,12 @@ export async function listPosts(
 
   if (filter.userId != null) {
     postQuery = postQuery.where('user_id', filter.userId)
+  }
+
+  if (filter.keyword != null) {
+    // VUL: SQLi
+    postQuery.whereRaw(`content LIKE '%${filter.keyword}%'`)
+    // postQuery.whereLike('content', `%${filter.keyword}%`)
   }
 
   const posts = await postQuery
