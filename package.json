@@ -4,7 +4,7 @@
   "description": "Kowaseru Server",
   "main": "index.js",
   "scripts": {
-    "start": "tsx src/entry.ts",
+    "start": "env-cmd -f .env tsx src/entry.ts",
     "dev": "env-cmd -f .env tsx watch src/entry.ts",
     "format": "prettier -w src/**/*",
     "test": "NODE_OPTIONS='--import=tsx --no-warnings' env-cmd -f .test.env mocha ./src/**/*.spec.ts --exit",
