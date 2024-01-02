@@ -38,7 +38,13 @@ SESSION_SECRET=
 npm i
 ```
 
-3 - Run the server.
+3 - Run DB migration
+
+```
+npm run migration:up
+```
+
+4 - Run the server.
 
 ```
 npm start
