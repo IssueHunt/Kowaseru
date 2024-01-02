@@ -20,3 +20,11 @@ For `SESSION_SECRET`, use the command below or somehow generate **32 bytes of fu
 ```
 openssl rand -hex 32
 ```
+
+## Development
+
+### Add table
+
+```
+npm run migration:make -- $NAME
+```
