@@ -1,6 +1,13 @@
+
 # Kowaseru
 
+<img src='./assets/kowaseru.jpg' width="400">
+
 A vulnerable server to practice pen testing.
+
+## Existing Vulnerabilities
+
+[Check here](./vulnerabilities.md)
 
 ## How to run
 
@@ -11,7 +18,25 @@ A vulnerable server to practice pen testing.
 
 ### Steps
 
-1 - Configure env vars or create .env file.
+0 - Clone or download this project
+
+```
+git clone git@github.com:IssueHunt/Kowaseru.git
+```
+
+1 - Prepare DB
+
+Run the script below inside from the project directory.
+(You can skip this if you want to use an existing postgres server.)
+
+```
+docker-compose up -d
+```
+
+
+2 - Configure env vars or create .env file.
+
+Make sure the db info is correct and don't forget to set `SESSION_SECRET`.
 
 ```
 BASE_URL=http://localhost
@@ -24,27 +49,25 @@ DB_NAME=kowaseru
 SESSION_SECRET=
 ```
 
-> If you edit db info in `docker-compose.yml`, update .env too.
-
 > For `SESSION_SECRET`, use the command below or somehow generate **32 bytes of full-entropy key**.
 >
 > ```
 > openssl rand -hex 32
 > ```
 
-2 - Install all deps.
+3 - Install all deps.
 
 ```
 npm i
 ```
 
-3 - Run DB migration
+4 - Run DB migration
 
 ```
 npm run migration:up
 ```
 
-4 - Run the server.
+5 - Run the server.
 
 ```
 npm start
