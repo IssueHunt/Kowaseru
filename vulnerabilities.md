@@ -47,3 +47,7 @@ POST /comments/:commentId/delete
 ## CSRF
 
 No CSRF prevention has been implemented. All forms are vulnerable against CSRF. (Anti-CSRF token will be introduced.)
+
+# Others
+
+SSH key pairs, `kowaseru-access` and `kowaseru-access.pub`, are not being used by any services. They are generated to check behavior of conventional secret scanners.
