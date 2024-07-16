@@ -28,20 +28,19 @@ export const signUpHandler = p([sessionSelector, urlEncodedBodySelector], async 
   }
 
   try {
-    const user = (
-      await db('users')
-        .insert({
-          email: body.email,
-          name: body.name,
-          password: await encryptPassword(body.password)
-        })
-        .returning('id')
+    const userId = (
+      await db('users').insert({
+        email: body.email,
+        name: body.name,
+        password: await encryptPassword(body.password)
+      })
     )[0]
 
     if (session.data == null) {
       session.data = {}
     }
-    session.data.uid = user.id
+
+    session.data.uid = userId
   } catch (error) {
     // TODO: Handle duplication
     throw error

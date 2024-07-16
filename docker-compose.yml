@@ -1,11 +1,20 @@
 version: '3.1'
 
 services:
-  db:
-    image: postgres:14
+  # db:
+  #   image: postgres:14
+  #   environment:
+  #     POSTGRES_DB: kowaseru
+  #     POSTGRES_USER: kowaseru
+  #     POSTGRES_PASSWORD: kowaseru
+  #   ports:
+  #     - 5432:5432
+  db2:
+    image: mysql:9
     environment:
-      POSTGRES_DB: kowaseru
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      MYSQL_DATABASE: kowaseru
+      MYSQL_USER: kowaseru
+      MYSQL_PASSWORD: kowaseru
+      MYSQL_ROOT_PASSWORD: root
     ports:
-      - 5432:5432
+      - 3306:3306

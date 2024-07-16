@@ -1,7 +1,7 @@
 import knex from 'knex'
 
 const db = knex({
-  client: 'pg',
+  client: 'mysql2',
   connection: {
     host: process.env.DB_HOST,
     port: parseInt(process.env.DB_PORT || '', 10),
