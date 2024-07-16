@@ -16,6 +16,35 @@ block content
 
         hr
 
+        h2 User Links
+        div
+          if (userLinks.length === 0)
+            div.text-muted No user links
+          else
+            ul
+              each userLink in userLinks
+                li
+                  a(href=userLink.value) #{userLink.name} (#{userLink.value})
+                  form(action=`/users/${user.id}/user-links/delete` method='post')
+                    input(type='hidden' value=userLink.id name='user_link_id')
+                    button.btn.btn-danger Delete
+
+        form(action=`/users/${user.id}/user-links` method='post')
+          div.row
+            div.col-6
+              div.form-group
+                label Name
+                input.form-control(type='text' name='name')
+
+            div.col-6
+              div.form-group
+                label URL
+                input.form-control(type='url' name='value')
+          div.mt-2
+            button.btn.btn-primary(type='submit') Submit
+
+        hr
+
         h2 Change Password
 
         if (typeof error === 'string')

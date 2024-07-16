@@ -2,7 +2,7 @@ import { createRouteParamSelector, querySelector, redirect } from 'prismy'
 import p from '../prismy'
 import db from '../db/db'
 import { render, renderErrorPage } from '../render'
-import { listPosts } from '../db/methods'
+import { listPosts, listUserLinks } from '../db/methods'
 import { currentUserSelector, urlEncodedBodySelector } from '../selectors'
 import { isString } from '../validators'
 import { checkPassword, encryptPassword } from '../password'
@@ -15,10 +15,12 @@ export const usersShowPageHandler = p([createRouteParamSelector('userId')], asyn
   }
 
   const posts = await listPosts({ userId: user.id })
+  const userLinks = await listUserLinks(user.id)
 
   return render('users.show', {
     user,
-    posts
+    posts,
+    userLinks
   })
 })
 
@@ -28,13 +30,62 @@ export const usersEditPageHandler = p([createRouteParamSelector('userId'), query
   if (user == null) {
     return renderErrorPage('Not Found', 'The user does not exist.', 404)
   }
+  const userLinks = await listUserLinks(user.id)
 
   return render('users.edit', {
     user,
+    userLinks,
     error: query.error,
     success: query.success
   })
 })
+
+export const usersLinksCreateHandler = p(
+  [createRouteParamSelector('userId'), currentUserSelector, urlEncodedBodySelector],
+  async (userId, currentUser, body) => {
+    if (currentUser == null) {
+      return renderErrorPage('Unauthenticated', 'Please sign in.', 401)
+    }
+    const user = (await db('users').select('id', 'name').where('id', userId))[0]
+
+    if (user == null) {
+      return renderErrorPage('Not Found', 'The user does not exist.', 404)
+    }
+    if (user.id !== currentUser.id) {
+      return renderErrorPage('Forbidden', 'Only the user can edit their profile.', 403)
+    }
+
+    await db('user_links').insert({
+      name: body.name,
+      user_id: currentUser.id,
+      value: body.value
+    })
+
+    return redirect(`/users/${user.id}`)
+  }
+)
+
+export const usersLinksDeleteHandler = p(
+  [createRouteParamSelector('userId'), currentUserSelector, urlEncodedBodySelector],
+  async (userId, currentUser, body) => {
+    if (currentUser == null) {
+      return renderErrorPage('Unauthenticated', 'Please sign in.', 401)
+    }
+    const userLink = (await db('user_links').select('id', 'name', 'user_id').where('id', body.user_link_id))[0]
+
+    if (userLink == null) {
+      return renderErrorPage('Not Found', 'The user does not exist.', 404)
+    }
+    console.log(userLink, currentUser.id)
+    if (userLink.user_id !== currentUser.id) {
+      return renderErrorPage('Forbidden', 'Only the user can edit their profile.', 403)
+    }
+
+    await db('user_links').delete().where('id', body.user_link_id)
+
+    return redirect(`/users/${userLink.user_id}/edit`)
+  }
+)
 
 export const usersUpdateHandler = p(
   [createRouteParamSelector('userId'), currentUserSelector, urlEncodedBodySelector],

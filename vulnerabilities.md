@@ -44,11 +44,21 @@ POST /users/:userId
 
 ## XSS
 
+### Self Stored XSS
+
 Username on the top nav bar is not escaped.
+
+You can reproduce XSS easily by changing your user name in the profile edit page.
 
 ```
 <script>alert('XSS')</script>
 ```
+
+### Stored XSS (Action Required)
+
+User links are vulnerable against URLs with `javascript:` protocol.
+
+You can set user links from the profile edit page. The links will be shown on the user's profile page.
 
 ## Open Redirect
 

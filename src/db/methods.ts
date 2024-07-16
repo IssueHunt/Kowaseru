@@ -60,3 +60,19 @@ export async function listPosts(
       return b.created_at - a.created_at
     })
 }
+
+export async function listUserLinks(userId: number) {
+  const userLinks = await db('user_links')
+    .leftJoin('users', 'user_links.user_id', '=', 'users.id')
+    .select(
+      'user_links.id',
+      'user_links.name',
+      'user_links.value',
+      'user_links.user_id',
+      'users.name as user_name',
+      'user_links.created_at'
+    )
+    .where('user_id', userId)
+
+  return userLinks
+}

@@ -8,6 +8,8 @@ import { postsCreateHandler, postsDeleteHandler } from './routes/posts'
 import { commentsCreateHandler, commentsDeleteHandler } from './routes/comments'
 import {
   usersEditPageHandler,
+  usersLinksCreateHandler,
+  usersLinksDeleteHandler,
   usersPasswordUpdateHandler,
   usersShowPageHandler,
   usersUpdateHandler
@@ -35,6 +37,8 @@ export default router(
     ['/users/:userId/edit', usersEditPageHandler],
     [['/users/:userId', 'post'], usersUpdateHandler],
     [['/users/:userId/password', 'post'], usersPasswordUpdateHandler],
+    [['/users/:userId/user-links', 'post'], usersLinksCreateHandler],
+    [['/users/:userId/user-links/delete', 'post'], usersLinksDeleteHandler],
 
     ['/search', searchPageHandler],
 

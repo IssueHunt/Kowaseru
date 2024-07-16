@@ -10,6 +10,15 @@ block content
           if (user.id === global.currentUser.id)
             div
               a.btn.btn-outline-secondary(href=`/users/${user.id}/edit`) Edit Profile
+        div
+          if (userLinks.length === 0)
+            div.text-muted No user links
+          else
+            ul
+              each userLink in userLinks
+                li
+                  //- Stored XSS: Href is not validated or sanitized
+                  a(href=userLink.value)=userLink.name
         hr
 
         each post in posts

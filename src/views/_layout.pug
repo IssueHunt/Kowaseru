@@ -24,8 +24,9 @@ html
 
         else
           div.d-flex.align-items-center
-            //- VUL: XSS
-            div.me-2!= global.currentUser.name
+            div.me-2
+              //- VUL: Self Stored XSS
+              a(href=`/users/${global.currentUser.id}`)!= global.currentUser.name
             div
               form(action='/signout' method='post')
                 button.btn.btn-danger(type='submit') Sign Out
