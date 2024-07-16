@@ -1,17 +1,13 @@
-import { render, renderErrorPage } from '../render'
+import { render } from '../render'
 import p from '../prismy'
-import { querySelector } from 'prismy'
 import { listPosts } from '../db/methods'
-import { isString } from '../validators'
+import { deepQuerySelector } from '../selectors'
 
-const searchPageHandler = p([querySelector], async query => {
-  if (!isString(query.keyword)) {
-    return renderErrorPage('Missing Keyword', 'Please provide keyword', 422)
-  }
-
+const searchPageHandler = p([deepQuerySelector], async query => {
   return render('search', {
     keyword: query.keyword as string,
     posts: await listPosts({
+      userId: query.user_id,
       keyword: query.keyword as string
     }),
     error: query.error
