@@ -32,6 +32,8 @@ http://localhost:4000/search?user_id[non_exist_param]=test
 http://localhost:4000/search?user_id[name]=test
 ```
 
+Ref: https://www.ghostccamm.com/blog/knex_sqli/
+
 ## IDOR
 
 Attackers can change other user's username by modifying `:userId` route parameter.
@@ -64,4 +66,4 @@ No CSRF prevention has been implemented. All forms are vulnerable against CSRF. 
 
 # Others
 
-SSH key pairs, `kowaseru-access` and `kowaseru-access.pub`, are not being used by any services. They are generated to check behavior of conventional secret scanners.
+SSH key pairs, `dev-only-kowaseru-access` and `dev-only-kowaseru-access.pub`, are not being used by any services. They are generated to check behavior of conventional secret scanners.
