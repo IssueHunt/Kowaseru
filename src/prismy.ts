@@ -11,8 +11,8 @@ const errorMiddleware = middleware([], next => async () => {
     return render(
       'error',
       {
-        errorName: 'Unknown Error',
-        errorDescription: 'Please ask dev to fix it'
+        errorName: (error as any).name,
+        errorDescription: (error as any).stack
       },
       500
     )
