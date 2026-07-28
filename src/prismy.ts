@@ -1,4 +1,4 @@
-import { middleware, prismy } from 'prismy'
+import { middleware, prismy, res } from 'prismy'
 import { sessionMiddleware } from './session'
 import { render, rendererGlobalStorageMiddleware } from './render'
 
@@ -8,14 +8,21 @@ const errorMiddleware = middleware([], next => async () => {
     return result
   } catch (error) {
     console.error(error)
-    return render(
-      'error',
-      {
-        errorName: (error as any).name,
-        errorDescription: (error as any).stack
-      },
-      500
-    )
+    try {
+      return render(
+        'error',
+        {
+          errorName: (error as any).name,
+          errorDescription: (error as any).stack
+        },
+        500
+      )
+    } catch (renderError) {
+      // Double-fault: the error page itself failed to render. Fall back to a
+      // plain-text 500 so this never escapes and crashes the process.
+      console.error(renderError)
+      return res('Internal Server Error', 500, { 'content-type': 'text/plain' })
+    }
   }
 })
 
