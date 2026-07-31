@@ -10,6 +10,7 @@
     "restart": "pm2 restart ecosystem.config.cjs",
     "logs": "pm2 logs kowaseru",
     "dev": "env-cmd -f .env tsx watch src/entry.ts",
+    "reset": "env-cmd -f .env tsx src/scripts/reset.ts",
     "format": "prettier -w src/**/*",
     "test": "NODE_OPTIONS='--import=tsx --no-warnings' env-cmd -f .test.env mocha ./src/**/*.spec.ts --exit",
     "migration:make": "knex migrate:make -x ts",
